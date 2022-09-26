@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>JOIN PAGE</h1>
+
+<div>
+
+    <div>
+        <input type="text" class="inputText">
+        <button class="btn">REFRESH</button>
+    </div>
+    <div class="imageContainer">
+<!--        <img src="/pic1">-->
+    </div>
+</div>
+
+<script>
+    document.querySelector(".btn").addEventListener("click",()=>{
+        const imageContainer = document.querySelector(".imageContainer")
+
+        imageContainer.innerHTML=""
+
+        let mo = document.getElementsByClassName("inputText")[0].value;
+
+        let num = parseInt(mo) / 1000;
+
+        for (let count = 0; count < num ; count++) {
+            setTimeout(() => {
+                const value = new Date().getMilliseconds();
+                console.log(value)
+                // imageContainer.innerHTML += '<img src="/pic1?v=' + value + '">'
+            let img = document.createElement("img");
+            img.src = `/pic1?v= + ${value + count}`;
+            document.getElementsByClassName("imageContainer")[0].appendChild(img);
+            }, 300)
+        }
+
+    },false)
+</script>
+
+</body>
+</html>
