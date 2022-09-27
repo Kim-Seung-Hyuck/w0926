@@ -19,23 +19,28 @@
 </div>
 
 <script>
+    // 버튼을 클릭할 경우 이벤트 발생
     document.querySelector(".btn").addEventListener("click",()=>{
         const imageContainer = document.querySelector(".imageContainer")
 
+        // innerHTML을 초기화한다.
         imageContainer.innerHTML=""
 
+        // ClassName이 inputText인 영역에 있는 값을 가져온다.
+        // ClassName은 하나가 아니기 때문에 인덱스 번호를 같이 붙여준다.
         let mo = document.getElementsByClassName("inputText")[0].value;
 
+        // 1000원, 2000원 등등 금액을 입력할 경우 /1000을 해줘서 천의 자릿수를 추출한다.
         let num = parseInt(mo) / 1000;
 
         for (let count = 0; count < num ; count++) {
             setTimeout(() => {
                 const value = new Date().getMilliseconds();
                 console.log(value)
-                // imageContainer.innerHTML += '<img src="/pic1?v=' + value + '">'
-            let img = document.createElement("img");
-            img.src = `/pic1?v= + ${value + count}`;
-            document.getElementsByClassName("imageContainer")[0].appendChild(img);
+                imageContainer.innerHTML += '<img src="/pic1?v=' + value + '">'
+            // let img = document.createElement("img");
+            // img.src = `/pic1?v= + ${value + count}`;
+            // document.getElementsByClassName("imageContainer")[0].appendChild(img);
             }, 300)
         }
 
