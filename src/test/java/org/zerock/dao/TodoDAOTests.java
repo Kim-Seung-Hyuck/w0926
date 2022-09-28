@@ -40,7 +40,7 @@ public class TodoDAOTests {
     @Test
     public void testUpdate(){
 
-        IntStream.rangeClosed(1, 5).forEach(i -> {
+        IntStream.rangeClosed(1, 1).forEach(i -> {
             TodoDTO dto = TodoDTO.builder()
                     .tno(i)
                     .title("win.test" + i)

@@ -4,6 +4,7 @@ package org.fs2.w0926.dao;
 // 결과를 받아야하는 데이터가 존재하면 반환값을 명시
 
 
+import com.sun.tools.javac.comp.Todo;
 import lombok.Cleanup;
 import org.fs2.w0926.dto.TodoDTO;
 
@@ -61,15 +62,42 @@ public enum TodoDAO {
             throw new Exception("insert error");
         } //end if
         preparedStatement.close();
-        preparedStatement = connection.prepareStatement(Last);
+//        preparedStatement = connection.prepareStatement(Last);
 
-        @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
+//        @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
 
-        resultSet.next();
-
-        result = resultSet.getInt(1);
+//        resultSet.next();
+//
+//        result = resultSet.getInt(1);
 
         return result;
+
+    }
+
+    public TodoDTO read(TodoDTO todoDTO) throws Exception{
+
+        StringBuffer buffer =
+                new StringBuffer("select * from tbl_todo where tno>0 order by tno desc limit ?,?");
+
+        @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(buffer.toString());
+
+
+        String sql = "Select * From tbl_todo where tno = ?";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, todoDTO.getTno());
+        @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
+            TodoDTO dto = TodoDTO.builder()
+                    .tno(resultSet.getInt("tno"))
+                    .title(resultSet.getString("title"))
+                    .memo(resultSet.getString("memo"))
+                    .dueDate(resultSet.getDate("dueDate").toLocalDate())
+                    .complete(resultSet.getBoolean("complete"))
+                    .regDate(resultSet.getTimestamp("regDate").toLocalDateTime())
+                    .modDate(resultSet.getTimestamp("modDate").toLocalDateTime())
+                    .build();
+
+        return dto;
 
     }
 
