@@ -1,6 +1,7 @@
 package org.zerock.dao;
 
 import lombok.Cleanup;
+import org.fs2.w0926.dao.ConnectionUtil;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
@@ -21,7 +22,7 @@ public class ConnectTests {
         for (int i = 0; i < 100; i++) {
 
             //커넥션
-            @Cleanup Connection connection = dao.ConnectionUtil.INSTANCE.getConnection();
+            @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
 
 
             String query = "select now()";
@@ -51,7 +52,7 @@ public class ConnectTests {
 
     public void testConnectsDS() throws Exception {
 
-        Connection connection = dao.ConnectionUtil.INSTANCE.getConnection();
+        Connection connection = ConnectionUtil.INSTANCE.getConnection();
 
         String query = "select now()";
         //쿼리
